@@ -1,0 +1,11 @@
+{
+    "variety": [
+      { "id": "1", "flavor": "Paneer" },
+      { "id": "2", "flavor": "Chicken" },
+      { "id": "3", "flavor": "Meat" },
+      { "id": "4", "flavor": "Mirchi" },
+      { "id": "5", "flavor": "Paperoni" },
+      { "id": "6", "flavor": "Cashews" }
+      
+    ]
+  }

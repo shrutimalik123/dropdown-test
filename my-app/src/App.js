@@ -1,15 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "coconut",
-      countries: [
-        { id: "1", country: "Cambodia" },
-        { id: "2", country: "Australia" },
-        { id: "3", country: "US" }
+      value: "Pizza Types",
+      flavors: [
+        { id: "1", flavor: " Cheese " },
+        { id: "2", flavor: " Vegetarian" },
+        { id: "3", flavor: "Meat Lover" },
+        { id: "4", flavor: "All In" },
+        { id: "5", flavor: "Build My Own" }
       ]
     };
 
@@ -42,8 +43,8 @@ class App extends React.Component {
   }
 
   render() {
-    const countries = require("./countries.json");
-    const uniqueCountry = this.getUnique(countries.world, "country");
+    const flavors = require("./pizzas.json");
+    const uniqueFlavor = this.getUnique(flavors.variety, "flavor");
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
@@ -58,28 +59,28 @@ class App extends React.Component {
         <br />
         <br />
         <label>
-          Looping through Array
+          Looping through Pizza Types
           <select>
-            {this.state.countries.map(item => (
-              <option key={item.id} value={item.country}>
-                {item.country}
+            {this.state.flavors.map(item => (
+              <option key={item.id} value={item.flavor}>
+                {item.flavor}
               </option>
             ))}
-            {console.log(this.state.countries)}
+            {console.log(this.state.flavors)}
           </select>
         </label>
         <input type="submit" value="Submit" />
         <br />
         <br />
         <label>
-          Looping through Json File
+          Looping through Json File for variety
           <select>
-            {uniqueCountry.map(item => (
-              <option key={item.id} value={item.country}>
-                {item.country}
+            {uniqueFlavor.map(item => (
+              <option key={item.id} value={item.flavor}>
+                {item.flavor}
               </option>
             ))}
-            {console.log(this.state.countries)}
+            {console.log(this.state.flavors)}
           </select>
         </label>
         <input type="submit" value="Submit" />
