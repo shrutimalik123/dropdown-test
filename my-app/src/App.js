@@ -1,43 +1,91 @@
-import * as React from 'react';
+import React from "react";
+import ReactDOM from "react-dom";
 
-const App = () => {
-  const options = [
-    { label: 'Fruit', value: 'fruit' },
-    { label: 'Vegetable', value: 'vegetable' },
-    { label: 'Meat', value: 'meat' },
-  ];
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "coconut",
+      countries: [
+        { id: "1", country: "Cambodia" },
+        { id: "2", country: "Australia" },
+        { id: "3", country: "US" }
+      ]
+    };
 
-  const [value, setValue] = React.useState('fruit');
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  handleSubmit(event) {
+    alert("Your favorite flavor is: " + this.state.value);
+    event.preventDefault();
+  }
+
+  handleChange = event => {
+    this.setState({ value: event.target.value });
   };
 
-  return (
-    <div>
-      <Dropdown
-        label="What do we eat?"
-        options={options}
-        value={value}
-        onChange={handleChange}
-      />
+  getUnique(arr, comp) {
+    const unique = arr
+      //store the comparison values in array
+      .map(e => e[comp])
 
-      <p>We eat {value}!</p>
-    </div>
-  );
-};
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
 
-const Dropdown = ({ label, value, options, onChange }) => {
-  return (
-    <label>
-      {label}
-      <select value={value} onChange={onChange}>
-        {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
-        ))}
-      </select>
-    </label>
-  );
-};
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+
+      .map(e => arr[e]);
+
+    return unique;
+  }
+
+  render() {
+    const countries = require("./countries.json");
+    const uniqueCountry = this.getUnique(countries.world, "country");
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">Grapefruit</option>
+            <option value="lime">Lime</option>
+            <option value="coconut">Coconut</option>
+            <option value="mango">Mango</option>
+          </select>
+        </label>
+        <br />
+        <br />
+        <label>
+          Looping through Array
+          <select>
+            {this.state.countries.map(item => (
+              <option key={item.id} value={item.country}>
+                {item.country}
+              </option>
+            ))}
+            {console.log(this.state.countries)}
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+        <br />
+        <br />
+        <label>
+          Looping through Json File
+          <select>
+            {uniqueCountry.map(item => (
+              <option key={item.id} value={item.country}>
+                {item.country}
+              </option>
+            ))}
+            {console.log(this.state.countries)}
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
 
 export default App;
